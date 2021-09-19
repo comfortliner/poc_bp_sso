@@ -1,2 +1,2 @@
 # poc_bp_sso
-Proof of concept. Boilerplate for Single Sign-on in a company
+Proof of concept. Boilerplate for a Single Sign-on navigation-bar to use in a company with active directory.
