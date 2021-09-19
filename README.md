@@ -1,2 +1,2 @@
 # poc_bp_sso
-Boilerplate SingleSignOn in a company
+Proof of concept. Boilerplate for Single Sign-on in a company
