@@ -1,0 +1,63 @@
+
+main,
+form {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-flow: column;
+  /* align-items: stretch; */
+}
+
+main {
+  background-color: rgb(240,240,240, 0.6);
+  max-width: 800px;
+  margin: 6rem auto;
+  padding:  20px 100px 20px 100px;
+}
+
+label,
+form > div {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+h1,
+h2,
+div,
+p {
+  font-size: 14px;
+  text-align: center;
+}
+
+hr {
+  width: 100%;
+}
+
+.a-btn {
+  font: 13.3px Arial, Sans-serif; 
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  background: #333;
+  color: white;
+  border: 0.1em solid #333;
+  margin: 0.5em 0;
+  padding: 0.5em 1em;
+  text-decoration: none;
+}
+
+.a-btn:hover {
+  background: #444;
+  border: 0.1em solid #444;
+}
+
+input {
+  display: flex;
+  width: 100%;
+  margin: 0.5em 0;
+  padding: 0.5em 1em;
+}
+
+.error {
+  color: red;
+}

@@ -1,0 +1,52 @@
+<nav>
+  <div class="logo">
+    <h4>App Name</h4>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a href="/admin">Admin</a>
+    </li>
+    <li>
+      <a href="/user">User</a>
+    </li>
+    <li>
+      <a href="/guest">Guest</a>
+    </li>
+  </ul>
+  <div class="user">
+    [<%= user.sub %>] <%= user.name %>
+  </div>
+  <div class="burger">
+    <div class="line1"></div>
+    <div class="line2"></div>
+    <div class="line3"></div>
+  </div>
+</nav>
+<script>
+    const navSlide = () => {
+      const burger = document.querySelector('.burger');
+      const nav = document.querySelector('.nav-links');
+      const navLinks = document.querySelectorAll('.nav-links li');
+
+      burger.addEventListener('click', () => {
+        // Toggle nav
+        nav.classList.toggle('nav-active');
+
+        // Animate links
+        navLinks.forEach((link, index) => {
+          if (link.style.animation) {
+            link.style.animation = '';
+          } else {
+            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+          }
+        });
+
+        // Burger animation
+        burger.classList.toggle('toggle');
+      });
+    }
+    navSlide();
+  </script>

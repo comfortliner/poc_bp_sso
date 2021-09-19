@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <%- include('./partials/head'); %>
+    <title>Login</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <%- include('./partials/navigation'); %>
+    <main>
+      <h1>Login</h1>
+      <a href="/sso" class="a-btn">Connect with SSO</a>
+      <button class="primary" onclick="window.location.href = '/sso'">Connect with SSO</button>
+      <hr />
+      <br />
+      <br />
+      <br />
+      <div>Or connect with the good old way:</div>
+      <form action="/action/connect" method="POST">
+        <label>
+          <input name="login" type="text" placeholder="Login" value="" />
+        </label>
+        <label>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value=""
+          />
+        </label>
+        <button type="submit">Connect</button>
+      </form>
+    </main>
+  </body>
+</html>
