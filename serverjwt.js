@@ -29,7 +29,51 @@ app.get('/', authToken, (req, res) => {
 });
 
 app.get('/login', authToken, (req, res) => {
-  res.render('login', { user: req.user });
+  res.render('login', { user: req.user, error: '' });
+});
+
+app.get('/contact', authToken, (req, res) => {
+  res.render('contact', { user: req.user });
+});
+
+app.post('/action/connect', async (req, res) => {
+  const domain = sso.getDefaultDomain();
+
+  const credentials = {
+    domain,
+    user: req.body.login,
+    password: req.body.password,
+  };
+
+  const ssoObject = await sso.connect(credentials);
+  if (ssoObject) {
+    const { cn, displayName, l, telephoneNumber, department, company } = ssoObject.user.adUser;
+
+    // user not in permits.json role guest as default
+    let role = 'guest';
+
+    const filterUser = permitsJSON.filter(element => element.sub == cn[0]);
+    if (filterUser.length !== 0) {
+      role = filterUser[0].role;
+    }
+    
+    const user = { 
+      'sub': cn[0],
+      'name': displayName[0],
+      'location': l[0],
+      'telephoneNumber': telephoneNumber[0],
+      'department': department[0],
+      'company': company[0],
+      role
+     };
+
+    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+    res.cookie('auth', accessToken, { httpOnly: true, maxAge: 1000 * 60 * 15 });
+
+    return res.redirect('/');
+  }
+
+  return res.redirect('/login', { user: '', error: 'bad login/password.' });
 });
 
 app.get('/action/disconnect', (req, res) => {
@@ -74,16 +118,6 @@ app.get('/sso', sso.auth({'useGroups': false}), (req, res)=> {
   res.redirect('/');
 });
 
-app.use('/protected', (req, res) => {
-  // if (!req.session.user) {
-  //   res.redirect('/login');
-  // }
-});
-
-// app.get('/navigation', (req, res) => {
-//   res.render('navigation', { user: req.user });
-// });
-
 app.get('/admin', authToken, permit('admin'), (req, res) => {
   res.render('admin', { user: req.user });
 });
@@ -94,6 +128,10 @@ app.get('/user', authToken, permit('admin', 'user'), (req, res) => {
 
 app.get('/guest', authToken, (req, res) => {
   res.render('guest', { user: req.user });
+});
+
+app.get('/profile', authToken, (req, res) => {
+  res.render('profile', { user: req.user });
 });
 
 // start with "node --max-http-header-size=16384 server.js"

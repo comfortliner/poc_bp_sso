@@ -11,7 +11,7 @@ const authToken = (req, res, next) => {
   if (tokenHeader === undefined && tokenCookie === undefined) {
     // Unauthenticated user role guest as default
     req.user = {
-      'sub': 'xxxxx',
+      'sub': '?',
       'name': 'Gast',
       'role': 'guest'
     }

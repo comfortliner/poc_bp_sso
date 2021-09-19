@@ -1,52 +1,91 @@
-<nav>
-  <div class="logo">
-    <h4>App Name</h4>
+<header>
+  <div class="container">
+    <div class="brand">
+      <h2>The<span>App</span></h2>
+    </div>
+
+    <div class="mobile-nav">
+      <a class="open-menu">MEN&Uuml;</a>
+    </div>
+
+    <nav class="navbar">
+      <ul class="menu">
+        <li class="menu-item">
+          <a href="/">Home</a>
+        </li>
+        <% if (user && user.role === 'admin') { %>
+          <li class="menu-item">
+            <a href="/admin">Admin</a>
+          </li>
+        <% } %>
+        <% if (user && (user.role === 'admin' || user.role === 'user')) { %>
+          <li class="menu-item">
+            <a href="/user">User</a>
+          </li>
+        <% } %>
+        <li class="menu-item has-sub-menu">
+          <a>Services</a>
+
+          <ul class="sub-menu">
+            <li class="menu-item">
+              <a>Sub1</a>
+            </li>
+            
+            <li class="menu-item has-sub-menu">
+              <a>Sub2</a>
+              
+              <ul class="sub-menu">
+                <li class="menu-item">
+                  <a>Sub2.1</a>
+                </li>
+                <li class="menu-item">
+                  <a>Sub2.2</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu-item">
+              <a>Sub3</a>
+            </li>
+          </ul>
+        </li>
+        <li class="menu-item">
+          <a href="/contact">Kontakt</a>
+        </li>
+        <li class="menu-item has-sub-menu">
+            <a><%= user.name %> [<%= user.sub %>]</a>
+
+            <ul class="sub-menu">
+              <li class="menu-item">
+                  <a href="/profile">Profil [<%= user.role %>]</a>
+              </li>
+              <li class="menu-item">
+                  <a href="/login">Login</a>
+              </li>
+              <li class="menu-item">
+                  <a href="/action/disconnect">Logout</a>
+              </li>
+            </ul>
+        </li>
+      </ul>
+      <br>
+      <br>
+      <a class="close-menu">SCHLIE&szlig;E MEN&Uuml;</a>
+    </nav>
   </div>
-  <ul class="nav-links">
-    <li>
-      <a href="/">Home</a>
-    </li>
-    <li>
-      <a href="/admin">Admin</a>
-    </li>
-    <li>
-      <a href="/user">User</a>
-    </li>
-    <li>
-      <a href="/guest">Guest</a>
-    </li>
-  </ul>
-  <div class="user">
-    [<%= user.sub %>] <%= user.name %>
-  </div>
-  <div class="burger">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-  </div>
-</nav>
+</header>
+
 <script>
-    const navSlide = () => {
-      const burger = document.querySelector('.burger');
-      const nav = document.querySelector('.nav-links');
-      const navLinks = document.querySelectorAll('.nav-links li');
+  // Toggle Mobile Menu
+  const open_menu = document.querySelector('.open-menu');
+  const close_menu = document.querySelector('.close-menu');
+  const navbar = document.querySelector('.navbar');
 
-      burger.addEventListener('click', () => {
-        // Toggle nav
-        nav.classList.toggle('nav-active');
+  open_menu.addEventListener('click', toggleMenu);
+  close_menu.addEventListener('click', toggleMenu);
 
-        // Animate links
-        navLinks.forEach((link, index) => {
-          if (link.style.animation) {
-            link.style.animation = '';
-          } else {
-            link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-          }
-        });
 
-        // Burger animation
-        burger.classList.toggle('toggle');
-      });
-    }
-    navSlide();
-  </script>
+  function toggleMenu () {
+    navbar.classList.toggle('is-active');
+  }
+</script>

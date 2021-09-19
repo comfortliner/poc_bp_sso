@@ -10,13 +10,6 @@
     <%- include('./partials/navigation'); %>
     <main>
       <h1>Home</h1>
-      <% if (user) { %>
-      <p>Hello <%= user.name %></p>
-      <a href="/action/disconnect" class="a-btn">Disconnect</a>
-      <% } else { %>
-      <p>Nobody is connected.</p>
-      <a href="/login" class="a-btn">Login page</a>
-      <% } %>
     </main>
   </body>
 </html>

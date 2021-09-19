@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- ToDo: SSPI aus der URL nehmen -->
   <head>
     <%- include('./partials/head'); %>
     <title>Login</title>
@@ -10,26 +10,22 @@
     <%- include('./partials/navigation'); %>
     <main>
       <h1>Login</h1>
-      <a href="/sso" class="a-btn">Connect with SSO</a>
-      <button class="primary" onclick="window.location.href = '/sso'">Connect with SSO</button>
+      <a href="/sso" class="a-btn">Anmeldung &uuml;ber Single Sign-On</a>
       <hr />
       <br />
-      <br />
-      <br />
-      <div>Or connect with the good old way:</div>
-      <form action="/action/connect" method="POST">
+      <div>oder Anmeldung durch Eingabe der Zugangsdaten</div>
+      <form action="/sspi/action/connect" method="POST">
         <label>
-          <input name="login" type="text" placeholder="Login" value="" />
+          <input name="login" type="text" placeholder="Konzern-ID" value="" />
         </label>
         <label>
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            value=""
-          />
+          <input name="password" type="password" placeholder="Passwort" value="" />
         </label>
-        <button type="submit">Connect</button>
+        <input type="submit" class="a-btn" value="Anmelden">
+
+        <% if (error) { %>
+          <p class="error"><%= error %></p>
+        <% } %>
       </form>
     </main>
   </body>
